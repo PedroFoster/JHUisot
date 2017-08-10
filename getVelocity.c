@@ -73,10 +73,10 @@ int main(int argc,char** argv){
       fprintf(fdadosy,"%f\n", velocity[j][1]);
 //      fprintf(fdadosz,"%f\n", velocity[j][2]);
     }
-    fprintf(resume,"Plane %d, line %d has been downloaded\n", i,w);
+    fprintf(resume,"Plane %d, line %d has been downloaded\n", w,i);
     }
     relatorio = fopen("./data/relatorio.txt","w");
-    fprintf(relatorio,"Plane %d has been downloaded\n", i);
+    fprintf(relatorio,"Plane %d has been downloaded\n", w);
     fclose(relatorio);	
     }
 //    }
