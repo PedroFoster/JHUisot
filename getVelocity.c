@@ -54,12 +54,15 @@ int main(int argc,char** argv){
 
 
    for(w1=0;w1<32;w1+=1){
-    for(w=0;w<32;w+1){
+    for(w=0;w<32;w+=1){
       for(i=0;i<N;i+=1){
        for(j=0;j<N;j+=1){
-  	    position[w*N*N+i*N+j][0] = (float)(j*2)*M_PI/((float)N);
-  	    position[w*N*N+i*N+j][1] = (float)(i*2)*M_PI/((float)N);
-  	    position[w*N*N+i*N+j][2] = (float)((w1*32+w)*2)*M_PI/((float)N);
+//  	    position[w*N*N+i*N+j][0] = (float)(j*2)*M_PI/((float)N);
+//  	    position[w*N*N+i*N+j][1] = (float)(i*2)*M_PI/((float)N);
+//  	    position[w*N*N+i*N+j][2] = (float)((w1*32+w)*2)*M_PI/((float)N);
+  	    position[w*N*N+i*N+j][0] = (float)(j*2)*3.141592/((float)N);
+  	    position[w*N*N+i*N+j][1] = (float)(i*2)*3.141592/((float)N);
+  	    position[w*N*N+i*N+j][2] = (float)((w1*32+w)*2)*3.141592/((float)N);
       }
      }
     }    
@@ -68,7 +71,7 @@ int main(int argc,char** argv){
     //getVelocity (authtoken, dataset, time0, spatialInterp, temporalInterp, N, position, velocity);
 
 //    turblibSetExitOnError(0);
-    printf("Calling for the JHTDB...");
+    printf("Calling for the JHTDB...\n");
     step_clock = omp_get_wtime();
     while (getVelocity (authtoken, dataset, time0, spatialInterp, temporalInterp, 32*N*N, position, velocity) != SOAP_OK) {
       if (attempts++ > 7000) {
@@ -77,7 +80,7 @@ int main(int argc,char** argv){
         } 
       else {
         printf("Temporary Error: %s\n", turblibGetErrorString());
-	printf("After error %d, returning to download...\n",attempts);
+    	printf("After error %d, returning to download...\n",attempts);
       }
       sleep(60);
     }
@@ -90,7 +93,7 @@ int main(int argc,char** argv){
 
     relatorio = fopen("./data/relatorio.txt","w");
     fprintf(relatorio,"time =%f, Block %d has been downloaded in %f minutes\n", time0,w1,(step_clock - omp_get_wtime())/60.);
-    printf("Next step, %d block concluded\n",w1+1);
+    printf("Next step, %d block at time %f concluded\n",w1+1,time0);
     fclose(relatorio);	
     }
 //    }
