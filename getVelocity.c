@@ -69,7 +69,7 @@ int main(int argc,char** argv){
 
 //    turblibSetExitOnError(0);
     printf("Calling for the JHTDB...");
-    process_clock = omp_get_wtime();
+    step_clock = omp_get_wtime();
     while (getVelocity (authtoken, dataset, time0, spatialInterp, temporalInterp, 32*N*N, position, velocity) != SOAP_OK) {
       if (attempts++ > 7000) {
         printf("Fatal Error: too many failures\n");
@@ -89,7 +89,7 @@ int main(int argc,char** argv){
     }
 
     relatorio = fopen("./data/relatorio.txt","w");
-    fprintf(relatorio,"time =%f, Block %d has been downloaded in %f minutes\n", time0,w1,(process_clock - omp_get_wtime())/60.);
+    fprintf(relatorio,"time =%f, Block %d has been downloaded in %f minutes\n", time0,w1,(step_clock - omp_get_wtime())/60.);
     printf("Next step, %d block concluded\n",w1+1);
     fclose(relatorio);	
     }
