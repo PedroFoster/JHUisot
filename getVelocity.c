@@ -67,7 +67,6 @@ int main(int argc,char** argv){
       }
      }
     } */   
-    printf("i*N+j = %d\n",i*N+j);
 
     //getVelocity (authtoken, dataset, time0, spatialInterp, temporalInterp, N, position, velocity);
 
