@@ -6,7 +6,7 @@
 #include<omp.h>
 
 int main(int argc,char** argv){
-  int i,j,w1,w2,N=1024;
+  int i,j,w,w1,N=1024;
   int attempts = 0;
   char *authtoken = "br.ufrj.if.foster-2377d412";
   char *dataset = "isotropic1024coarse";
