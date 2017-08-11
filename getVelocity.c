@@ -13,7 +13,7 @@ int main(int argc,char** argv){
 //  float time0 = 0.60F;
     float time0;
 //  float time0;
-  float myclock;
+  float myclock, step_clock;
   enum SpatialInterpolation spatialInterp = Lag6;
   enum TemporalInterpolation temporalInterp = NoTInt;
   float (*position)[3] = malloc(32*N*N*sizeof(*position));
@@ -68,7 +68,9 @@ int main(int argc,char** argv){
     //getVelocity (authtoken, dataset, time0, spatialInterp, temporalInterp, N, position, velocity);
 
 //    turblibSetExitOnError(0);
-    while (getVelocity (authtoken, dataset, time0, spatialInterp, temporalInterp, N, position, velocity) != SOAP_OK) {
+    printf("Calling for the JHTDB...");
+    process_clock = omp_get_wtime();
+    while (getVelocity (authtoken, dataset, time0, spatialInterp, temporalInterp, 32*N*N, position, velocity) != SOAP_OK) {
       if (attempts++ > 7000) {
         printf("Fatal Error: too many failures\n");
         exit(1);
@@ -87,7 +89,8 @@ int main(int argc,char** argv){
     }
 
     relatorio = fopen("./data/relatorio.txt","w");
-    fprintf(relatorio,"Block %d has been downloaded\n", w1);
+    fprintf(relatorio,"time =%f, Block %d has been downloaded in %f minutes\n", time0,w1,(process_clock - omp_get_wtime())/60.);
+    printf("Next step, %d block concluded\n",w1+1);
     fclose(relatorio);	
     }
 //    }
@@ -97,7 +100,7 @@ int main(int argc,char** argv){
     soapdestroy();
 
   /* Stop clock */
-  printf("Time elapsed: %f hours\n",myclock-omp_get_wtime()/3600);
+  printf("Time elapsed: %f hours\n",(myclock-omp_get_wtime())/3600.);
 
   fclose(fdadosx);
   fclose(fdadosy);
