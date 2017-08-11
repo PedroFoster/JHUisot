@@ -95,7 +95,7 @@ int main(int argc,char** argv){
     relatorio = fopen("./data/relatorio.txt","w");
     fprintf(relatorio,"time =%f, plane %d has been downloaded in %f minutes\n", time0,w,(step_clock - omp_get_wtime())/60.);
 //    printf("Next step, %d block at time %f concluded\n",w1+1,time0);
-    printf("Next step, %d plane at time %f concluded\n",w,time0);
+    printf("Next step, plane %d at time %2.2f concluded in %f minutes\n",w,time0, (step_clock - omp_get_wtime())/60.);
     fclose(relatorio);
     }
 //    }
