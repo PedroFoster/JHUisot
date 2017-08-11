@@ -61,6 +61,8 @@ int main(int argc,char** argv){
   	    position[w*N*N+i*N+j][1] = (float)(i*2)*M_PI/((float)N);
   	    position[w*N*N+i*N+j][2] = (float)((w1*32+w)*2)*M_PI/((float)N);
       }
+     }
+    }    
 
 
     //getVelocity (authtoken, dataset, time0, spatialInterp, temporalInterp, N, position, velocity);
@@ -83,10 +85,9 @@ int main(int argc,char** argv){
       fprintf(fdadosy,"%f\n", velocity[j][1]);
 //      fprintf(fdadosz,"%f\n", velocity[j][2]);
     }
-    fprintf(resume,"Plane %d, line %d has been downloaded\n", w,i);
-    }
+
     relatorio = fopen("./data/relatorio.txt","w");
-    fprintf(relatorio,"Plane %d has been downloaded\n", w);
+    fprintf(relatorio,"Block %d has been downloaded\n", w1);
     fclose(relatorio);	
     }
 //    }
